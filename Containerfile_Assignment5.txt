@@ -1,0 +1,11 @@
+FROM fedora:latest
+
+RUN dnf -y update && \
+    dnf -y install httpd && \
+    dnf clean all
+
+COPY data /var/www/html/data
+
+CMD ["httpd", "-D", "FOREGROUND"]
+
+EXPOSE 80
