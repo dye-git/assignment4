@@ -1,0 +1,16 @@
+FROM fedora:latest AS base
+RUN dnf -y update && \
+    dnf -y install httpd && \
+    dnf clean all
+EXPOSE 80
+ENTRYPOINT ["httpd", "-D", "FOREGROUND"]
+
+#Website 1
+FROM base AS website1
+COPY website1.html /var/www/html/
+LABEL website=1
+
+#Website 2
+FROM base AS website2
+COPY website2.html /var/www/html/
+LABEL website=2
